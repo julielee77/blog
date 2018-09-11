@@ -1,4 +1,16 @@
-# web设计理念
+---
+layout:     post
+title:      "web设计理念"
+date:       2016-06-20 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - web设计
+    - 设计理念
+---
+
 ## 设计原则
 高内聚，低耦合
 ## 设计模式

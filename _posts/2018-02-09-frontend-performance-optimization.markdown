@@ -1,10 +1,17 @@
-# 前端性能优化
-为了优化网页加载速度，以及便于扩展或维护等，通常需要优化前端代码或配置。
+---
+layout:     post
+title:      "前端性能优化"
+date:       2018-02-19 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - 性能优化
+---
 
-- [优化总则](#优化总则)
-- [html优化](#html优化)
-- [css优化](#css优化)
-- [javascript优化](#javascript优化)
+>为了优化网页加载速度，以及便于扩展或维护等，通常需要优化前端代码或配置。
+
 
 ## 优化总则
 1. ###缓存

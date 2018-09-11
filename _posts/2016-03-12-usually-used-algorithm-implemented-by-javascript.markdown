@@ -1,7 +1,17 @@
-# 常用算法／功能的javascript实现
-- [算法](#算法)
-- [功能函数](#功能函数)
-- [效果实现](#效果实现)
+---
+layout:     post
+title:      "常用算法／功能的javascript实现"
+date:       2016-03-12 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - 算法
+    - JavaScript
+    - 动画
+---
+
 ## 算法
 ### 排序算法
 1. 冒泡排序

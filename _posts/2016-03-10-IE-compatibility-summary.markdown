@@ -1,5 +1,17 @@
-# IE兼容性总结
-（注：文中所涉及IE版本均包含自身。文中也会适当提及其它浏览器的兼容性。）
+---
+layout:     post
+title:      "IE兼容性总结"
+date:       2016-03-10 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - IE兼容性
+---
+
+>文中所涉及IE版本均包含自身。文中也会适当提及其它浏览器的兼容性。
+
 ##概况
 IE9+基本已和chrome兼容性差不多，而IE7-市场占有率基本可不考虑，因此一般考虑的是IE8的兼容性。
 

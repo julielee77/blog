@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "前端实用工具／库"
-date:       2017-02-20 11:00:00
+date:       2016-02-20 11:00:00
 author:     "Julie"
 header-img: "img/post-bg-nextgen-web-pwa.jpg"
 header-mask: 0.3
@@ -10,7 +10,8 @@ tags:
     - 前端工具
     - JavaScript框架
 ---
-# 前端实用工具／库
+>前端工具或js框架总结，用于复辅助开发或提高性能。
+
 ## 性能兼容相关
 ### 性能支持检测
 - modernizr.js

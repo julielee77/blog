@@ -1,12 +1,14 @@
-# css特殊元素／属性总结
-- [seletor](#selector)
-- [inheritance](#inheritance)
-- [box-model](#box-model)
-- [positioning](#positioning)
-- [text](#text)
-- [color](#color)
-- [unusual attributes](#unusual-attributes)
-- [css3 features](#css3-features)
+---
+layout:     post
+title:      "css特殊元素／属性总结"
+date:       2016-03-03 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - css
+---
 
 ## selectors
 元素的最终有效样式由选择器的层叠和权重决定。（《css权威指南》中sepecifity的解释方法，与此类似）

@@ -1,10 +1,18 @@
-# Hybrid App开发概述
-移动端网页开发主要考虑**webkit内核的浏览器**（hybird App主要）和chrome，uc,qq,小米浏览器---测试的重点
+---
+layout:     post
+title:      "Hybrid App开发概述"
+date:       2016-03-21 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - 移动端开发
+    - Hybird App
+---
 
-- [前言](#前言)
-- [webview](#webview)
-- [特点](#特点)
-- [优势](#优势)
+>移动端网页开发主要考虑**webkit内核的浏览器**（hybird App主要）和chrome，uc,qq,小米浏览器---测试的重点
+
 
 ## 前言
 移动端网页开分为三种模式：

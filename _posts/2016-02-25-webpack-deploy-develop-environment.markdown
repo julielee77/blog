@@ -1,4 +1,18 @@
-# webpack构建开发环境
+---
+layout:     post
+title:      "webpack构建开发环境"
+date:       2016-02-25 10:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - 前端构建
+    - webpack
+---
+
+> 阅读webpack官方文档的总结性文章
+
 ## 安装webpack及相关组件
 1. 在设备上安装全局的webpack 
 

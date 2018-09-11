@@ -1,4 +1,17 @@
-# 移动端h5问题探索(1)支付密码输入框
+---
+layout:     post
+title:      "移动端h5问题探索(1)支付密码输入框"
+date:       2016-05-20 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - H5
+    - 移动端开发
+---
+
+# 移动端h5问题探索--支付密码输入框
 **主要涉及问题**
 
 1. `input[type=tel]`与`input[type=number]`

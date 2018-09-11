@@ -1,4 +1,18 @@
-#flex布局
+---
+layout:     post
+title:      "flex布局"
+date:       2018-07-20 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - css
+    - Flex box
+---
+
+// TODO
+
 display:flex
 
 flex:1//number

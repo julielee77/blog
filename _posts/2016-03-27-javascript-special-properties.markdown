@@ -1,3 +1,15 @@
+---
+layout:     post
+title:      "javascript特殊属性总结"
+date:       2016-03-27 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - JavaScript
+---
+
 # javascript特殊属性总结
 ## DOM
 ### 尺寸相关

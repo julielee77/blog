@@ -1,3 +1,17 @@
+---
+layout:     post
+title:      "前端实用工具／库"
+date:       2016-03-20 15:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - H5
+    - 移动端开发
+---
+
+
 # h5开发实用功能／属性
 一些常用的功能，可根据需求应用。
 ## meta属性

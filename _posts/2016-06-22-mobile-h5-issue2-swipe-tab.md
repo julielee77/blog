@@ -1,7 +1,19 @@
-# 移动端h5问题探索(2)左右滑切换tab
-移动端h5开发经常会用到滑动效果，但浏览器并没有提供swipe事件，可以用touch事件模拟。注意必须采用javascript的addEventListener绑定监听事件。
+---
+layout:     post
+title:      "移动端h5问题探索--左右滑切换tab"
+date:       2016-06-22 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - H5
+    - 移动端开发
+---
 
-参考[HTML5的javascript touch事件](http://hedgehogking.com/?p=556)
+>移动端h5开发经常会用到滑动效果，但浏览器并没有提供swipe事件，可以用touch事件模拟。注意必须采用javascript的addEventListener绑定监听事件。
+
+>参考[HTML5的javascript touch事件](http://hedgehogking.com/?p=556)
 
 ## 主要涉及知识点
 1. 移动端touch事件

@@ -1,12 +1,18 @@
+---
+layout:     post
+title:      "CSS常用功能实现"
+date:       2016-03-02 11:00:00
+author:     "Julie"
+header-img: "img/post-bg-nextgen-web-pwa.jpg"
+header-mask: 0.3
+catalog:    true
+tags:
+    - css
+---
+>css常用功能，如清除浮动、水平垂直居中、文本省略等
 
-# CSS常用功能实现
 
-- [水平垂直居中](#水平垂直居中)
-- [清除浮动并使父元素有高度](#清除浮动并使父元素有高度)
-- [文本省略](#文本省略)
-- [禁止浏览器自动填充表单](#禁止浏览器自动填充表单)
-
-[github文件下载地址](https://github.com/JulieLee77/units)
+[github文件下载地址](https://github.com/JulieLee77/utils)
 
 ## 水平垂直居中
 ### 水平居中
