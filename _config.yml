@@ -1,6 +1,6 @@
 # Site settings
 title: Julie's Blog
-SEOTitle: 卡布奇诺的博客 | Julie's Blog
+SEOTitle: Julie的博客 | Julie's Blog
 header-img: img/home-bg.jpg
 email: lhz_julie@163.com
 description: "前端与产品，Web"
@@ -53,7 +53,7 @@ kramdown:
 
 
 # Disqus settings
-disqus_username: julielee77
+#disqus_username: julielee77
 
 # Netease settings
 netease_comment: false
