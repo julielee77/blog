@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>移动端h5适配方案 - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2017/02/20/mobile-h5-responsive-issue/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
+                        <a class="tag" href="/tags/#H5" title="H5">H5</a>
                         
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#移动端开发" title="移动端开发">移动端开发</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>移动端h5适配方案</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on February 20, 2017</span>
                 </div>
             </div>
         </div>
@@ -201,31 +201,126 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<blockquote>
+  <p>参考文章</p>
+  <ol>
+    <li><a href="https://github.com/amfe/article/issues/17">使用Flexible实现手淘H5页面的终端适配</a></li>
+    <li><a href="http://div.io/topic/1092?utm_source=tuicool&amp;utm_medium=referral">移动端高清、多屏适配方案</a></li>
+  </ol>
+</blockquote>
 
-<p>display:flex</p>
+<p>补充一些用于<strong>css media query</strong>概念：</p>
 
-<p>flex:1//number</p>
+<ol>
+  <li>
+    <p><strong>dpr（device-pixel-ratio，设备像素比）</strong></p>
 
-<p>flex-direction:column//row –default</p>
+    <p><em>dpr=物理像素/设备独立像素</em></p>
 
-<p>flex-wrap:nowrap//default</p>
+    <p>因为retina高清屏幕的出现，才有了dpr的概念。比如，css像素为<em>1px × 1px</em>的块，在<em>dpr=2</em>的屏幕中物理像素为<em>2px × 2px</em>的块。</p>
+  </li>
+  <li>
+    <p><strong>max-device-width与max-width</strong></p>
 
-<p>flex-row:</p>
+    <p>max-device-width指设备屏幕的宽度，max-width指浏览器的宽度。两者有区别的情形：（1）在浏览器中打开h5页面（2）当设备横屏时</p>
+  </li>
+</ol>
 
-<p>align-items:center</p>
+<p>以下将讨论h5页面适配中的几种尺寸的一般方案，具体元素的适配可能需要根据效果具体调整。</p>
 
-<p>justify-content:center</p>
+<p>首先，加载一段求出dpr，并添加为html的 <code class="highlighter-rouge">data-dpr</code>属性</p>
 
-<p>align-self</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//放在head里，需要在其它资源之前加载
+    document.documentElement.setAttribute('data-dpr',window.devicePixelRatio|1);
+</code></pre></div></div>
+<p>这样，之后就可以用html[data-dpr=*]写一些css hack了。</p>
+<h2 id="图片">图片</h2>
+<p>应该适应使用高清多倍图片，最好不同的dpr适应不同的图片文件。
+假设以<em>750X1334</em>（iphone 6，<em>dpr=2</em>）做设计基准，有一个<em>400X600</em>的图，那么css只需写</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>img{
+  width:200px;
+  height:300px;
+}
+</code></pre></div></div>
+<p>而在不同设备中加载不同图片，就显示相应尺寸的图片。
+<strong>参考做法</strong>：先切最大倍的图，然后用图片处理器等比缩放并命名，最后得到<em>3X</em> /<em>2X</em> /<em>1X</em>的图。
+（这里建议命名方式以 <em>imageName_1X.png</em>这种方式）</p>
+<h2 id="字体间隙">字体/间隙</h2>
+<p>为了在大屏下显示更多的内容，字体和有些间隙不适合用rem适配，可以写成固定或设定几个适配的px值。</p>
 
-<p>align-content</p>
+<p><strong>参考做法</strong>：写一个.mixin函数，然后设置css media query的时候调用。形如：</p>
 
-<p>order</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.px2px(font-size, 32);
+</code></pre></div></div>
 
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
+<p>以下为参考的less的.mixin函数（可能需要适当修改）</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.px2px(@name, @px){
+    @{name}: round(@px / 2) * 1px;
+    [data-dpr="2"] &amp; {
+        @{name}: @px * 1px;
+    }
+    // for mx3
+    [data-dpr="2.5"] &amp; {
+        @{name}: round(@px * 2.5 / 2) * 1px;
+    }
+    // for 小米note
+    [data-dpr="2.75"] &amp; {
+        @{name}: round(@px * 2.75 / 2) * 1px;
+    }
+    [data-dpr="3"] &amp; {
+        @{name}: round(@px / 2 * 3) * 1px
+    }
+    // for 三星note4
+    [data-dpr="4"] &amp; {
+        @{name}: @px * 2px;
+    }
+}
+</code></pre></div></div>
+<h2 id="其它控件">其它控件</h2>
+<p>推荐用%、vw、vh或rem（font-size of the root element）单位。设置html的font-size（基准值），不同元素就可以根据设置的rem值自适应了。</p>
+
+<p><em>元素的尺寸=px/基准值</em></p>
+
+<p><em>基准值=clientWidth×dpr/10</em>  （推荐用此算法）</p>
+
+<p>比如，设计基准是iphone 6。<em>基准值=375×2/10=75px</em>，加入一个元素在设计图中是100px，那么尺寸为<em>100/75=1.3333rem</em>。</p>
+
+<p>这时候，就产生了两种设置基准值用于适配的思路：</p>
+
+<ol>
+  <li>
+    <p>用js给每个设备设置基准值</p>
+
+    <p>用js获取<em>clientWidth</em>并求出基准值后，给html元素加<em>style:font-size=基准值</em>。（可与设置data-dpr属性同时）</p>
+  </li>
+  <li>
+    <p>用css media query写一些适配</p>
+
+    <p>例如：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> @media screen and (max-device-width: 320px){
+       html[data-dpr="1"]{
+         font-size:32px;
+       }
+       html[data-depr="2"]{
+         font-size:64px;
+       }
+     }
+     @media screen and (max-device-width: 360px){
+       html[data-dpr="1"]{
+         font-size:36px;
+       }
+       html[data-depr="2"]{
+         font-size:72px;
+       }
+       html[data-dpr="3"]{
+         font-size:108px;
+       }
+     }
+</code></pre></div>    </div>
+  </li>
+</ol>
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +328,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/07/26/vue-issue/" data-toggle="tooltip" data-placement="top" title="前端实用工具／库">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>前端实用工具／库</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2017/07/19/weixin-share-issue/" data-toggle="tooltip" data-placement="top" title="微信分享问题探索">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>微信分享问题探索</span>
                         </a>
                     </li>
                     

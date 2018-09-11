@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="canonical" href="https://lihaizhu.com/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -75,10 +75,6 @@
                     
                     <li>
                         <a href="/about/">About</a>
-                    </li>
-                    
-                    <li>
-                        <a href="/portfolio/">Portfolio</a>
                     </li>
                     
                     <li>
@@ -154,7 +150,7 @@
                 <div class="site-heading">
                     <h1>Julie's Blog</h1>
                     <!--<hr class="small">-->
-                    <span class="subheading">我干了什么 究竟拿了时间换了什么</span>
+                    <span class="subheading">成长是终其一生的话题</span>
                 </div>
             </div>
         </div>
@@ -179,7 +175,7 @@
 <div class="post-preview">
     <a href="/2018/09/11/web-security-hole/">
         <h2 class="post-title">
-            Web Security Hole
+            web安全漏洞
         </h2>
         
         <div class="post-content-preview">
@@ -193,7 +189,7 @@ https
         </div>
     </a>
     <p class="post-meta">
-        Posted by Julie's Blog on September 11, 2018
+        Posted by Julie on September 11, 2018
     </p>
 </div>
 <hr>
@@ -201,11 +197,12 @@ https
 <div class="post-preview">
     <a href="/2018/07/20/flex-layout/">
         <h2 class="post-title">
-            Flex Layout
+            flex布局
         </h2>
         
         <div class="post-content-preview">
-            #flex布局
+            // TODO
+
 display:flex
 
 flex:1//number
@@ -226,172 +223,104 @@ align-content
 
 order
 
-兼容性处理
-...
+兼容性处理...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Julie's Blog on July 20, 2018
+        Posted by Julie on July 20, 2018
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/02/09/frontend-performance-optimization/">
+    <a href="/2018/02/19/frontend-performance-optimization/">
         <h2 class="post-title">
-            Frontend Performance Optimization
+            前端性能优化
         </h2>
         
         <div class="post-content-preview">
-            前端性能优化
-为了优化网页加载速度，以及便于扩展或维护等，通常需要优化前端代码或配置。
-
-
-  优化总则
-  html优化
-  css优化
-  javascript优化
+            
+  为了优化网页加载速度，以及便于扩展或维护等，通常需要优化前端代码或配置。
 
 
 优化总则
 
   
     ###缓存
- 缓存无疑是非常重要的，在一个项目中一般已做好各级的缓存（由客户端和后端），而对于前端来说需要关注浏览器缓存以及localStorage/sessionStorage能做到的一些事情...
+ 缓存无疑是非常重要的，在一个项目中一般已做好各级的缓存（由客户端和后端），而对于前端来说需要关注浏览器缓存以及localStorage/sessionStorage能做到的一些事情（如缓存常用js文件／图片等）。
+
+    推荐阅读：
+
+    AlloyTeam的we...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Julie's Blog on February 9, 2018
+        Posted by Julie on February 19, 2018
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2017/07/26/mobile-h5-issue-summary/">
+    <a href="/2017/07/19/weixin-share-issue/">
         <h2 class="post-title">
-            Mobile H5 Issue Summary
+            微信分享问题探索
         </h2>
         
         <div class="post-content-preview">
-            移动端h5问题总结
-以下问题提到的机型特指原系统自带的浏览器。
+            从应用分享到微信
+由客户端封装分享的方法，提供给webview中的h5页面使用。
 
+可对分享到微信／微博等平台的图文分别控制。
 
-  fixed定位
-  button类型input的disabled
-  1px问题
-  border-radius
-  禁止滚动
-  background
+缩略图的要求为尺寸为90*90，可使用72的分辨率，但大小不能超过32k。同时客户端取消缩小。
+微信中分享
+参见微信的JS-SDK文档
+待续….
 
-
-fixed定位
-
-  
-    ios4-, Android 2.1-不支持fixed
-    position一律为static
-  
-  
-    当设置pos...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Julie's Blog on July 26, 2017
+        Posted by Julie on July 19, 2017
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2017/07/22/tap-event/">
+    <a href="/2017/02/20/mobile-h5-responsive-issue/">
         <h2 class="post-title">
-            Tap Event
+            移动端h5适配方案
         </h2>
         
         <div class="post-content-preview">
-            tap事件
-由于移动端click事件有300ms的延迟，推荐用tap事件代替。
-
-定义
-当touchstart/touchend发生时，如果手指为同一位置且没有touchmove时，即认为一个tap事件。
-tap“穿透”
-现象：当使用tap事件让一个蒙层消失时，会触发蒙层覆盖部分的click事件。
-
-解释：因为tap后蒙层消失，但300ms后click事件会被触发，就被覆盖部分的元素接受了。...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Julie's Blog on July 22, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2017/07/22/mobile-h5-issue2-swipe-tab/">
-        <h2 class="post-title">
-            Mobile H5 Issue2 Swipe Tab
-        </h2>
-        
-        <div class="post-content-preview">
-            移动端h5问题探索(2)左右滑切换tab
-移动端h5开发经常会用到滑动效果，但浏览器并没有提供swipe事件，可以用touch事件模拟。注意必须采用javascript的addEventListener绑定监听事件。
-
-参考HTML5的javascript touch事件
-
-主要涉及知识点
-
-  移动端touch事件
-  阻止左右滑默认事件
+            
+  参考文章
+  
+    使用Flexible实现手淘H5页面的终端适配
+    移动端高清、多屏适配方案
+  
 
 
-touch事件
+补充一些用于css media query概念：
 
 
   
-    touchs...
+    dpr（device-pixel-ratio，设备像素比）
+
+    dpr=物理像素/设备独立像素
+
+    因为retina高清屏幕的出现，才有了dpr的概念。比如，css像素为1px × 1px的块...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Julie's Blog on July 22, 2017
+        Posted by Julie on February 20, 2017
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2017/07/20/mobile-h5-issue1-pay-password/">
+    <a href="/2016/07/26/vue-issue/">
         <h2 class="post-title">
-            Mobile H5 Issue1 Pay Password
-        </h2>
-        
-        <div class="post-content-preview">
-            移动端h5问题探索(1)支付密码输入框
-主要涉及问题
-
-
-  input[type=tel]与input[type=number]
-  -webkit-text-security mobile延迟
-  keydown事件阻止键入
-  ios focus()方法问题
-
-
-需求描述
-
-点击页面的按钮时发出请求，根据请求结果决定是否显示支付密码输入弹框（聚焦输入框调出数字键盘）。
-
-思路解读
-
- ...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Julie's Blog on July 20, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2017/07/18/vue-issue/">
-        <h2 class="post-title">
-            Vue Issue
+            前端实用工具／库
         </h2>
         
         <div class="post-content-preview">
@@ -410,66 +339,131 @@ ios和android顺序不一样，应避免使用。(vue 2.0已改为v-repeat)
         </div>
     </a>
     <p class="post-meta">
-        Posted by Julie's Blog on July 18, 2017
+        Posted by Julie on July 26, 2016
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2017/07/06/mobile-h5-responsive-issue/">
+    <a href="/2016/06/22/tap-event/">
         <h2 class="post-title">
-            Mobile H5 Responsive Issue
+            tap事件
         </h2>
         
         <div class="post-content-preview">
-            移动端h5适配问题
-参考文章
+            tap事件
+由于移动端click事件有300ms的延迟，推荐用tap事件代替。
 
-使用Flexible实现手淘H5页面的终端适配
+定义
+当touchstart/touchend发生时，如果手指为同一位置且没有touchmove时，即认为一个tap事件。
+tap“穿透”
+现象：当使用tap事件让一个蒙层消失时，会触发蒙层覆盖部分的click事件。
 
-移动端高清、多屏适配方案
+解释：因为tap后蒙层消失，但300ms后click事件会被触发，就被覆盖部分的元素接受了。...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Julie on June 22, 2016
+    </p>
+</div>
+<hr>
 
-补充一些用于css media query概念：
+<div class="post-preview">
+    <a href="/2016/06/22/mobile-h5-issue2-swipe-tab/">
+        <h2 class="post-title">
+            移动端h5问题探索--左右滑切换tab
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  移动端h5开发经常会用到滑动效果，但浏览器并没有提供swipe事件，可以用touch事件模拟。注意必须采用javascript的addEventListener绑定监听事件。
+
+
+
+  参考HTML5的javascript touch事件
+
+
+主要涉及知识点
+
+  移动端touch事件
+  阻止左右滑默认事件
+
+
+touch事件
 
 
   
-    dpr（device-pixel-ratio，设备像素比）
-
-    dpr=物理像素/设备独立像素
-
-    因为retina高清屏幕的出现，才有了dpr的概念。比如，css像素为1px × 1px的块，在dpr=...
+    touchstart
+    触摸开始...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Julie's Blog on July 6, 2017
+        Posted by Julie on June 22, 2016
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2017/06/26/weixin-share-issue/">
+    <a href="/2016/06/20/web-design/">
         <h2 class="post-title">
-            Weixin Share Issue
+            web设计理念
         </h2>
         
         <div class="post-content-preview">
-            微信分享问题探索
-2016年7月19日
-从应用分享到微信
-由客户端封装分享的方法，提供给webview中的h5页面使用。
+            设计原则
+高内聚，低耦合
+设计模式
+设计思维
 
-可对分享到微信／微博等平台的图文分别控制。
+  
+    渐进增强 Progressive Enhancement
 
-缩略图的要求为尺寸为90*90，可使用72的分辨率，但大小不能超过32k。同时客户端取消缩小。
-微信中分享
-参见微信的JS-SDK文档
+    先只构建核心功能（即低端浏览器的基本功能），再针对设备平台追加功能。
+  
+  
+    优雅降级
 
-待续….
+    先构建完整的功能（高端浏览器），然后针对设备平台测试和修复。
+  
+
 
         </div>
     </a>
     <p class="post-meta">
-        Posted by Julie's Blog on June 26, 2017
+        Posted by Julie on June 20, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/05/20/mobile-h5-issue1-pay-password/">
+        <h2 class="post-title">
+            移动端h5问题探索(1)支付密码输入框
+        </h2>
+        
+        <div class="post-content-preview">
+            移动端h5问题探索–支付密码输入框
+主要涉及问题
+
+
+  input[type=tel]与input[type=number]
+  -webkit-text-security mobile延迟
+  keydown事件阻止键入
+  ios focus()方法问题
+
+
+需求描述
+
+点击页面的按钮时发出请求，根据请求结果决定是否显示支付密码输入弹框（聚焦输入框调出数字键盘）。
+
+思路解读
+
+  
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Julie on May 20, 2016
     </p>
 </div>
 <hr>
@@ -502,6 +496,62 @@ ios和android顺序不一样，应避免使用。(vue 2.0已改为v-repeat)
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+                        
+                            
+                                <a href="/tags/#前端工具" title="前端工具" rel="3">
+                                    前端工具
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#JavaScript框架" title="JavaScript框架" rel="3">
+                                    JavaScript框架
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#H5" title="H5" rel="5">
+                                    H5
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#移动端开发" title="移动端开发" rel="6">
+                                    移动端开发
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#css" title="css" rel="3">
+                                    css
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#JavaScript" title="JavaScript" rel="3">
+                                    JavaScript
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
                         
                             
                         
@@ -565,6 +615,8 @@ ios和android顺序不一样，应避免使用。(vue 2.0已改为v-repeat)
                 <hr>
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
+                    
+                        <li><a href="http://su.gallery/">Su</a></li>
                     
                         <li><a href="http://mida.re/">乱序</a></li>
                     

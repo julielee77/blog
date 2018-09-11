@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>移动端h5问题探索--左右滑切换tab - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2016/06/22/mobile-h5-issue2-swipe-tab/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
+                        <a class="tag" href="/tags/#H5" title="H5">H5</a>
                         
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#移动端开发" title="移动端开发">移动端开发</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>移动端h5问题探索--左右滑切换tab</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on June 22, 2016</span>
                 </div>
             </div>
         </div>
@@ -201,31 +201,132 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<blockquote>
+  <p>移动端h5开发经常会用到滑动效果，但浏览器并没有提供swipe事件，可以用touch事件模拟。注意必须采用javascript的addEventListener绑定监听事件。</p>
+</blockquote>
 
-<p>display:flex</p>
+<blockquote>
+  <p>参考<a href="http://hedgehogking.com/?p=556">HTML5的javascript touch事件</a></p>
+</blockquote>
 
-<p>flex:1//number</p>
+<h2 id="主要涉及知识点">主要涉及知识点</h2>
+<ol>
+  <li>移动端touch事件</li>
+  <li>阻止左右滑默认事件</li>
+</ol>
 
-<p>flex-direction:column//row –default</p>
+<h2 id="touch事件">touch事件</h2>
 
-<p>flex-wrap:nowrap//default</p>
+<ol>
+  <li>
+    <h3 id="touchstart">touchstart</h3>
+    <p>触摸开始</p>
+  </li>
+  <li>
+    <h3 id="touchmove">touchmove</h3>
+    <p>触摸拖动</p>
 
-<p>flex-row:</p>
+    <p>可在此阻止页面滚动 <code class="highlighter-rouge">event.preventDefault();</code></p>
+  </li>
+  <li>
+    <h3 id="touchend">touchend</h3>
+    <p>触摸结束</p>
+  </li>
+  <li>
+    <h3 id="touchcancel">touchcancel</h3>
+    <p>触摸取消（官方无详细说明，作为不支持touchend时的替代方案）</p>
+  </li>
+</ol>
 
-<p>align-items:center</p>
+<p>注：touchend部分手机不支持，如小米4，可用touchcanel代替（iphone SE不支持，但支持touchend）。</p>
+<h2 id="每个touch事件都包含了3个touch对象列表">每个touch事件都包含了3个touch对象列表</h2>
 
-<p>justify-content:center</p>
+<ol>
+  <li>
+    <h3 id="touches">touches</h3>
+    <p>当前屏幕上所有触摸点的列表</p>
+  </li>
+  <li>
+    <h3 id="targettouches">targetTouches</h3>
+    <p>targetTouches当前对象上所有触摸点的列表</p>
+  </li>
+  <li>
+    <h3 id="changedtouches">changedTouches</h3>
+    <p>涉及当前事件的触摸点的列表</p>
+  </li>
+</ol>
 
-<p>align-self</p>
+<h2 id="每个touch对象有如下属性">每个touch对象有如下属性</h2>
+<ol>
+  <li>
+    <p>target</p>
 
-<p>align-content</p>
+    <p>触摸目标的DOM节点坐标</p>
+  </li>
+  <li>
+    <p>identifier</p>
 
-<p>order</p>
+    <p>触摸的唯一ID，一般为从0开始的流水号</p>
+  </li>
+  <li>
+    <p>clientX/clientY</p>
 
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
+    <p>触摸目标在视口中的x/y坐标</p>
+  </li>
+  <li>
+    <p>pageX/pageY</p>
+
+    <p>触摸目标在页面中的x/y坐标</p>
+  </li>
+  <li>
+    <p>screenX/screenY</p>
+  </li>
+</ol>
+
+ 	触摸目标在屏幕中的x坐标
+
+<ol>
+  <li>
+    <p>radiusX/radiusY/rotationAngle</p>
+
+    <p>手指触摸区域椭圆形的半径和旋转角度（低版本浏览器不支持）</p>
+  </li>
+</ol>
+
+<h2 id="touch示例">touch示例</h2>
+<p><a href="https://julielee77.github.io/demo/0003.html">demo</a> 当触摸屏幕时，tip消失；触摸结束，tip显示。</p>
+
+<h2 id="实现方法">实现方法</h2>
+<p><a href="https://julielee77.github.io/demo/0004.html">实现demo</a></p>
+
+<p><strong>js关键部分</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//slide left &amp; right, switch the tab
+var xx, yy, XX, YY, swipeX, swipeY;
+window.addEventListener('touchstart', function (event) {
+  xx = event.targetTouches[0].screenX;
+  yy = event.targetTouches[0].screenY;
+  swipeX = true;
+  swipeY = true;
+}, false);
+window.addEventListener('touchend', function (event) {
+  XX = event.changedTouches[0].screenX;
+  YY = event.changedTouches[0].screenY;
+  if (swipeX &amp;&amp; Math.abs(XX - xx) - Math.abs(YY - yy) &gt; 0) {//左右滑动
+    event.stopPropagation();
+    event.preventDefault();
+    swipeY = false;
+    if (XX &gt; xx &amp;&amp; vm.tabIndex &gt; 0) {
+      vm.tabIndex--;
+    } else if (XX &lt; xx &amp;&amp; vm.tabIndex &lt; vm.tabNames.length - 1) {
+      vm.tabIndex++;
+    }
+  } else if (swipeY &amp;&amp; Math.abs(XX - xx) - Math.abs(YY - yy) &lt; 0) {//上下滑动
+    swipeX = false;
+  }
+});
+</code></pre></div></div>
+
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +334,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/06/20/web-design/" data-toggle="tooltip" data-placement="top" title="web设计理念">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>web设计理念</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2016/06/22/tap-event/" data-toggle="tooltip" data-placement="top" title="tap事件">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>tap事件</span>
                         </a>
                     </li>
                     

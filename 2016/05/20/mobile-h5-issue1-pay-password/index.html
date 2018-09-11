@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>移动端h5问题探索(1)支付密码输入框 - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2016/05/20/mobile-h5-issue1-pay-password/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
+                        <a class="tag" href="/tags/#H5" title="H5">H5</a>
                         
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#移动端开发" title="移动端开发">移动端开发</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>移动端h5问题探索(1)支付密码输入框</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on May 20, 2016</span>
                 </div>
             </div>
         </div>
@@ -201,31 +201,177 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<h1 id="移动端h5问题探索支付密码输入框">移动端h5问题探索–支付密码输入框</h1>
+<p><strong>主要涉及问题</strong></p>
 
-<p>display:flex</p>
+<ol>
+  <li><code class="highlighter-rouge">input[type=tel]</code>与<code class="highlighter-rouge">input[type=number]</code></li>
+  <li><code class="highlighter-rouge">-webkit-text-security</code> mobile延迟</li>
+  <li>keydown事件阻止键入</li>
+  <li>ios <code class="highlighter-rouge">focus()</code>方法问题</li>
+</ol>
 
-<p>flex:1//number</p>
+<p><strong>需求描述</strong></p>
 
-<p>flex-direction:column//row –default</p>
+<p>点击页面的按钮时发出请求，根据请求结果决定是否显示支付密码输入弹框（聚焦输入框调出数字键盘）。</p>
 
-<p>flex-wrap:nowrap//default</p>
+<h2 id="思路解读">思路解读</h2>
+<ol>
+  <li>
+    <h3 id="inputtypetel与inputtypenumber">input[type=tel]与input[type=number]</h3>
+    <p>因为需要调出数字键盘，就排除了 <code class="highlighter-rouge">input[type=password]</code>，而 <code class="highlighter-rouge">input[type=tel]</code>或 <code class="highlighter-rouge">input[type=number]</code>均可调出数字键盘，但 <code class="highlighter-rouge">input[type=number]</code>可输入负数和小数点（且还有spin-button）。</p>
 
-<p>flex-row:</p>
+    <p>考虑到 <code class="highlighter-rouge">-webkit-text-security</code>在mobile的延迟，故需隐藏input，用元素显示圆点模拟（这样也方便调整样式）。</p>
 
-<p>align-items:center</p>
+    <p><strong>HTML密码部分</strong></p>
 
-<p>justify-content:center</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;input type="tel" v-model="pwd" class="pwdInput" maxlength="6" @keydown="pwdKeyDown($event)" v-el:pwd v-if="lockPwd||!planed"&gt;
+ &lt;section class="mask pwd" v-show="inputPwd"&gt;
+   &lt;div class="modal"&gt;
+     &lt;div class="modal-content"&gt;
+       &lt;h4&gt;请输入6位数支付密码&lt;/h4&gt;
+       &lt;div class="pwd-box"&gt;
+         &lt;ul @click.prevent="focusPwd()"&gt;&lt;li v-for="item in 6" track-by="$index"&gt;&lt;span v-if="pwd.length&gt;$index"&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+       &lt;/div&gt;
+     &lt;/div&gt;
+     &lt;div class="footer clearfix"&gt;
+       &lt;div&gt;&lt;input type="button" value="取消" @click="inputPwd=false"/&gt;&lt;/div&gt;
+       &lt;div&gt;&lt;input type="button" value="确定" :disabled="pwd===null||pwd===undefined||pwd.length&lt;pwdLength" @click="submitPlan()"/&gt;&lt;/div&gt;
+     &lt;/div&gt;
+   &lt;/div&gt;
+ &lt;/section&gt;
+</code></pre></div>    </div>
+    <p><strong>css密码部分</strong></p>
 
-<p>align-self</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> //支付密码
+ input.pwdInput[type=tel]
+ position fixed
+ top 50%
+ left -100%
+ padding 0
+ border none
+ color transparent
+ background transparent
+ &amp;:focus
+   outline none
+	
+ .pwd .modal
+ .pwd-box
+   width 100%
+   margin 0 auto
+   padding-top gap-12
+   text-align center
+   @extend .border-top-1px
+   ul
+     li
+       box-sizing border-box
+       display inline-block
+       width 16.667%
+       border-top 1px solid gray-4
+       border-right 1px solid gray-4
+       border-bottom 1px solid gray-4
+       &amp;:after
+         content ''
+         display inline-block
+         vertical-align middle
+         width 0
+         height 100%
+       span
+         display inline-block
+         vertical-align middle
+         text-align center
+         width 10px
+         height 10px
+         border-radius 999px
+         background gray-8
+       &amp;:not(:first-child)
+         border-left none
+       &amp;:first-child
+         border-left 1px solid gray-4
+         border-top-left-radius 2px
+         border-bottom-left-radius 2px
+       &amp;:last-child
+         border-top-right-radius 2px
+         border-bottom-right-radius 2px	
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <h3 id="eventpreventdefault">event.preventDefault();</h3>
+    <p>可在keydown方法中禁止键盘输入。移动端阻止默认事件支持 <code class="highlighter-rouge">event.preventDefault()</code>和 <code class="highlighter-rouge">event.returnValue=false</code>。</p>
 
-<p>align-content</p>
+    <p><strong>密码输入keydown监听方法</strong></p>
 
-<p>order</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> pwdKeyDown: function (event) {
+   var flag = true;
+   if (event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57) { //0-9
+     (this.pwd !== null &amp;&amp; this.pwd !== undefined &amp;&amp; this.pwd.length == this.pwdLength) &amp;&amp; (flag = false); //密码已输完,禁止继续输入
+   } else if (event.keyCode === 13) { //enter
+     this.pwd !== null &amp;&amp; this.pwd !== undefined &amp;&amp; this.pwd.length === this.pwdLength &amp;&amp; this.submitPlan(); //若已输完6位,则enter提交
+   } else if (event.keyCode !== 8 &amp;&amp; event.keyCode !== 46) { //非 delete &amp; backspace
+     flag = false;
+   }
+   !flag &amp;&amp; event.preventDefault();
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <h3 id="关于documentactiveelementblur">关于document.activeElement.blur();</h3>
+    <p><code class="highlighter-rouge">document.activeElement</code>可获取当前聚焦元素。</p>
 
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
+    <p>本来是为了解决ios自动focus()问题（这应该是ios的bug）查找到的，但不支持focus()的环境先调用blur()()也并无作用。因此elemnt.blur()基本不用。</p>
+  </li>
+  <li>
+    <h3 id="ios自动focus实现">ios自动focus()实现</h3>
+    <p>ios中调用focus()方法，document.activeElement会改变为设置的元素，但并不会因此调出键盘。解决方法为<strong>在click方法中立即调用focus()， 不能有在timeout／异步请求等延时之后</strong>。因此input输入框应一直在DOM中，显示在页面视线外。</p>
+
+    <p>若需根据HTTP请求后的结果判断是否要focus()，故需改用同步请求。同时，不能在<code class="highlighter-rouge">timeout</code>方法后focus()，原理同异步请求。</p>
+
+    <p>同时，input设置autofocus对ios也是无效的。</p>
+
+    <p><strong>判断显示输入密码弹出框函数</strong></p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> showInputPwd: function () {
+       if (this.lastCode === 2013) {
+         this.lockPwd = true;
+         return;
+       }
+       var _this = this;
+       $.ajax({
+           url: 'js/0002.json',
+           method: 'GET',
+           async: false//solve ios focus() bug
+         })
+         .done(function (data) {
+           if (data.code === 2013) {//支付密码已锁定
+             _this.lockPwd = true;
+             _this.lastCode = data.code;
+           } else if (data.code === 0) {
+             _this.inputPwd = true;
+             _this.$set('pwd', null);
+             setTimeout(function () {
+               if (!_this.list) {
+                 _this.list = document.querySelectorAll('.pwd-box li');
+                 var width = document.querySelector('.pwd-box').clientWidth / 6;
+                 for (var i = 0, v; v = _this.list[i]; i++) {
+                   v.style.height = width + 'px';
+                 }
+               }
+             }, 100);
+            _this.$els.pwd.focus();
+           }
+         })
+         .fail(function (error) {
+           console.log('fail' + ',' + error);
+         });
+     }
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h1 id="实现方法">实现方法</h1>
+
+<p>使用了vue和jquery（主要用它的同步请求方法，若不需要改用vue-resource插件）<a href="https://julielee77.github.io/demo/0002.html">demo</a></p>
+
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +379,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/03/27/javascript-special-properties/" data-toggle="tooltip" data-placement="top" title="javascript特殊属性总结">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>javascript特殊属性总结</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2016/06/20/web-design/" data-toggle="tooltip" data-placement="top" title="web设计理念">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>web设计理念</span>
                         </a>
                     </li>
                     

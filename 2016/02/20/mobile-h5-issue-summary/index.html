@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>移动端h5问题总结 - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2016/02/20/mobile-h5-issue-summary/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
+                        <a class="tag" href="/tags/#H5" title="H5">H5</a>
                         
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#移动端开发" title="移动端开发">移动端开发</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>移动端h5问题总结</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on February 20, 2016</span>
                 </div>
             </div>
         </div>
@@ -201,31 +201,182 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<blockquote>
+  <p>以下问题提到的机型特指原系统自带的浏览器。</p>
+</blockquote>
 
-<p>display:flex</p>
+<h2 id="fixed定位">fixed定位</h2>
+<ol>
+  <li>
+    <h3 id="ios4--android-21-不支持fixed">ios4-, Android 2.1-不支持fixed</h3>
+    <p>position一律为static</p>
+  </li>
+  <li>
+    <h3 id="当设置positionfixed若滚屏会出现错位">当设置position:fixed，若滚屏会出现错位。</h3>
 
-<p>flex:1//number</p>
+    <p>解决办法：用absolute模拟fixed定位。<a href="https://julielee77.github.io/demo/0001.html">demo</a></p>
 
-<p>flex-direction:column//row –default</p>
+    <p><strong>HTML部分</strong></p>
 
-<p>flex-wrap:nowrap//default</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">&lt;!DOCTYPE html&gt;</span>
+ <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;head&gt;</span>
+   <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-	width,initial-scale=1,maximum-scale=1,user-	scalable=0"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;title&gt;</span>absolute stimulates fixed<span class="nt">&lt;/title&gt;</span>
+   <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"../css/demo/0001.css"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;/head&gt;</span>
+ <span class="nt">&lt;body&gt;</span>
+   <span class="nt">&lt;header&gt;</span>
+     header fixed
+   <span class="nt">&lt;/header&gt;</span>
+   <span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">"main-wrapper"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;p&gt;</span>...超过一屏的文字<span class="nt">&lt;/p&gt;</span>
+   <span class="nt">&lt;/section&gt;</span>
+   <span class="nt">&lt;footer&gt;</span>
+     footer fixed
+   <span class="nt">&lt;/footer&gt;</span>
+ <span class="nt">&lt;/body&gt;</span>
+ <span class="nt">&lt;/html&gt;</span>
+</code></pre></div>    </div>
+    <p><strong>css部分（.styl）</strong></p>
 
-<p>flex-row:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> header,footer
+   position absolute
+   left 0
+   right 0
+   background #43a08d
+   line-height 44px
+   z-index 1
+   text-align center
+   color #fff
+   font-size 20px
+ header
+   top 0
+ footer
+   bottom 0
+ .main-wrapper
+   position absolute
+   top 0
+   bottom 0
+   padding 44px 0
+   overflow-y auto
+   -webkit-overflow-scrolling touch //ios原生滚动回调效果
+   p
+     line-height 24px
+</code></pre></div>    </div>
+    <p>目前，我们团队移动端Andriod为4.0＋，因此可不考虑此bug，但ios若将弹出框等设置为fixed，使其show时会出现页面未渲染出来但DOM文档中可找到（其实是存在的，只是页面看不到，比如弹出框的按钮还是可点击的）的情况，这种情况建议还是使用absolute。</p>
+  </li>
+</ol>
 
-<p>align-items:center</p>
+<h3 id="移动端fixed受transform影响">移动端fixed受transform影响</h3>
+<p>//TODO
+此外，position:fixed还有其它一些坑，比如其中不能有input/textarea输入框，这样调出键盘后会会出现错位。而且，Android比ios表现更好。<a href="https://github.com/maxzhang/maxzhang.github.com/issues/2">更多fixed坑</a></p>
+<h2 id="button类型input的disabled">button类型input的disabled</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input[type=button][disabled]
+  opacity 1
+</code></pre></div></div>
+<p>重设ios渲染的默认opacity=0.4</p>
+<h2 id="1px问题">1px问题</h2>
+<p>原生1px等于物理1px，但web的1px则依 <code class="highlighter-rouge">devicePixelRatio</code>而定。因此，在Retina屏中的1px往往是物理1px的数倍，参照一般 <code class="highlighter-rouge">devicePixelRatio=2</code>可实现近似1px（当然也可以根据不同 <code class="highlighter-rouge">devicePixelRatio</code>更精细地适配）</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gray-4 = #e7e7e7 //间隔线
+vendor(prop, args...)
+  -webkit-{prop} args
+  {prop} args
+.scale
+  position relative @unless @position
+  &amp;:after
+    content ''
+    position absolute
+    bottom 0 @unless @bottom
+    left 0 @unless @left
+    right 0 @unless @right
+    border-bottom 1px solid gray-4
+    vendor transform scaleY(.5)
+    vendor transform-origin 0 0  
+</code></pre></div></div>
 
-<p>justify-content:center</p>
+<p>在ios8中支持<code class="highlighter-rouge">border:0.5px</code></p>
+<h2 id="border-radius">border-radius</h2>
+<h3 id="android23不支持">Android2.3不支持％</h3>
+<p>会将50%写成一个较大的值，如：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>div
+  border-radius 999px
+</code></pre></div></div>
+<h3 id="android及safari低版本img圆角问题">Android及safari低版本img圆角问题</h3>
+<p>当img有 <code class="highlighter-rouge">border</code>时设置 <code class="highlighter-rouge">border-radius</code>会导致圆角变形，需要在img外嵌套一层元素，并设置 <code class="highlighter-rouge">border</code>和 <code class="highlighter-rouge">border-radius</code></p>
+<h3 id="android42x背景溢出">Android4.2.x背景溢出</h3>
+<p>如Galary S4，红米，小米3。在Android4.2.x中同时设置 <code class="highlighter-rouge">border-radius</code>和 <code class="highlighter-rouge">background</code>时，背景色会溢出到圆角以外，需要使用 <code class="highlighter-rouge">background-clip:padding-box</code>来修复，但是如果border-color为半透明时，北京直角部分依然会露出来。</p>
+<h3 id="android42x不支持border-radius简写">Android4.2.x不支持border-radius简写</h3>
+<p>如Galary S4，红米，小米3。解决方法：使用 <code class="highlighter-rouge">border-radius</code>四个扩展属性，缩写属性放在最后。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>border-radius(args)
+  if(length(args)==1)
+	border-top-left-radius args
+	border-top-right-radius args
+	border-bottom-right-radius args
+	border-bottom-left-radius args
+	border-radius args
+  else
+    border-radius args			
+</code></pre></div></div>
+<h3 id="其它问题">其它问题</h3>
+<p>IE9中fieldset不支持 <code class="highlighter-rouge">border-radius</code>
+IE9中带有背景渐变（ <code class="highlighter-rouge">gradient</code>）的时候背景溢出。</p>
 
-<p>align-self</p>
+<p>更多<code class="highlighter-rouge">border-radius</code>问题参考 <a href="https://github.com/yisibl/blog/issues/2">border-radius 移动之伤</a></p>
+<h2 id="禁止滚动">禁止滚动</h2>
+<p>移动端设置</p>
 
-<p>align-content</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>body{overflow-x:hidden;}
+</code></pre></div></div>
+<p>不会生效，因为移动端是基于touch，可将内容包裹再设置</p>
 
-<p>order</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.wrapper
+  position fixed  
+  overflow-x hidden
+</code></pre></div></div>
+<h2 id="background">background</h2>
+<ol>
+  <li>
+    <h3 id="background渐变背景">background渐变背景</h3>
+    <p>部分Android对backgorund渐变不支持，而需要使用更明确的	background-image属性。</p>
 
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> background-image: -webkit-linear-gradient(left, 	#f8f8f8 0%, #9edef9 50%, #f8f8f8 100%);
+</code></pre></div>    </div>
+    <p>此外，to right写法QQ浏览器／手机safari浏览器不支持。</p>
+  </li>
+  <li>
+    <h3 id="background-size简写兼容性">background-size简写兼容性</h3>
+    <p>MX2不支持background-size简写</p>
+
+    <p>补充background简写</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> background: color image position/size repeat 	attachment clip origin;
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="-webkit-backface-visibilitynone">-webkit-backface-visibility:none;</h2>
+<p>可解决CSS3动画闪烁问题，但也会导致其它一些奇葩问题，慎用。</p>
+<h2 id="transformtranslate3d">transform:translate3d()</h2>
+<p>特别是Z轴的移位会导致一些问题，慎用。</p>
+<h2 id="max-device-widthmax-width">max-device-width/max-width</h2>
+<p>MX2不支持 <code class="highlighter-rouge">max-device-width</code></p>
+<h2 id="input与line-height">input与line-height</h2>
+<p>注：input元素设置line-height控制高度时，mx2的光标高度等于line-height，可改为</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input[type=tel]{
+	height:44px;
+	vertical-align:middle;
+}
+</code></pre></div></div>
+<h2 id="ios不支持focus">ios不支持focus()</h2>
+<p>ios中调用focus()方法，document.activeElement会改变为设置的元素，但并不会因此调出键盘。解决方法为<strong>在click方法中立即调用focus()， 不能有在timeout／异步请求等延时之后</strong>。</p>
+
+<p>详细示例参见<a href="https://github.com/JulieLee77/frontend-articles/blob/master/hybrid%20app/mobile-h5-issue1-pay-password.md">移动端h5问题探索(1)支付密码输入框</a></p>
+<h2 id="获取设备可用尺寸">获取设备可用尺寸</h2>
+<p><code class="highlighter-rouge">screen.avialHeight</code> 包含了webview渲染的标题栏，应使用 <code class="highlighter-rouge">window.innerHeight</code>获取文档显示区的高度。</p>
+
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +384,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/02/20/frontend-tools-or-framework/" data-toggle="tooltip" data-placement="top" title="前端实用工具／库">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>前端实用工具／库</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2016/02/25/webpack-deploy-develop-environment/" data-toggle="tooltip" data-placement="top" title="webpack构建开发环境">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>webpack构建开发环境</span>
                         </a>
                     </li>
                     

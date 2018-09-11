@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>前端实用工具／库 - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2016/03/20/h5-develop-useful-function-or-attributes/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
+                        <a class="tag" href="/tags/#H5" title="H5">H5</a>
                         
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#移动端开发" title="移动端开发">移动端开发</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>前端实用工具／库</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on March 20, 2016</span>
                 </div>
             </div>
         </div>
@@ -201,31 +201,104 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<h1 id="h5开发实用功能属性">h5开发实用功能／属性</h1>
+<p>一些常用的功能，可根据需求应用。</p>
+<h2 id="meta属性">meta属性</h2>
+<ul>
+  <li>
+    <p>apple-mobile-web-app-capable</p>
 
-<p>display:flex</p>
+    <p>```</p>
+  </li>
+</ul>
+<meta name="apple-mobile-web-app-capable" content="yes" />
 
-<p>flex:1//number</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```	
+yes删除apple默认的工具栏和菜单 - apple-mobile-web-app-status-bar-style
 
-<p>flex-direction:column//row –default</p>
+```
+&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;
+```
+default/black/black-translucent 设置apple状态栏样式
+另会配合apple-touch-fullscreen
 
-<p>flex-wrap:nowrap//default</p>
+```
+&lt;meta name="apple-touch-fullscreen" content="yes"&gt;
+``` - formata-detection
 
-<p>flex-row:</p>
+```
+&lt;meta name="format-detection" content="telephone=no"&gt;
+```
+telephone=no/email=no,adress=no 取消apple的默认格式识别
+</code></pre></div></div>
 
-<p>align-items:center</p>
+<h2 id="-webkit-min-device-pixel-ratio">-webkit-min-device-pixel-ratio</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@media and screen(-webkit-device-pixel-ratio:2){
+	...
+}
+</code></pre></div></div>
+<p><code class="highlighter-rouge">-webkit-max(min)-device-pixel-ratio</code> 设备最大／最小像素密度</p>
 
-<p>justify-content:center</p>
+<p><code class="highlighter-rouge">deviePixelRatio</code>指的是 <code class="highlighter-rouge">window.devicePixelRatio</code>，被所有主流浏览器支持。</p>
 
-<p>align-self</p>
+<p><code class="highlighter-rouge">devicePixelRatio=物理像素／dip</code></p>
 
-<p>align-content</p>
+<p>dip或dp（<strong>device independent pixel</strong>）与屏幕密度有关。可以用来辅助区分视网膜设备和非视网膜设备。</p>
+<h2 id="autocompeleteoff">autocompelete=”off”</h2>
+<p>去掉输入框的历史记录</p>
+<h2 id="-webkit-tap-highlight-color">-webkit-tap-highlight-color</h2>
 
-<p>order</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a,img,button,input,textarea{
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+</code></pre></div></div>
+<p>取消移动端tap后的高亮显示</p>
+<h2 id="去掉inputbutton点击时蓝色边框">去掉input，button点击时蓝色边框</h2>
 
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input[type=button],button{
+	outline:none;
+}
+</code></pre></div></div>
+<p>(input一般只用得上type=button)</p>
+
+<h2 id="-webkit-appearancenone">-webkit-appearance:none</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>textarea,input{
+	-webkit-appearance:none;
+	appearance:none;
+}
+</code></pre></div></div>
+<p>不显示浏览器的默认样式。</p>
+
+<p>对于<code class="highlighter-rouge">textrea</code>, <code class="highlighter-rouge">input</code>去掉ios的圆角及内阴影。</p>
+
+<p>对于 <code class="highlighter-rouge">radio</code>，<code class="highlighter-rouge">checkbox</code>可扩展选取范围，但已选样式需要图标。</p>
+<h2 id="user-selectnone">user-select:none</h2>
+<p>禁止长按选取／复制</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>body{
+	-webkit-user-select:none;
+	user-select:none;
+}
+</code></pre></div></div>
+<h2 id="pointer-eventsnone">pointer-events:none;</h2>
+<p>决定是否可以穿越绝对定位元素，触发遮挡元素的某些行为。</p>
+<h2 id="-webkit-touch-callourtnone">-webkit-touch-callourt:none;</h2>
+<p>当触摸链接时禁用系统默认菜单。
+设置ios的webview可设置body此属性。</p>
+<h2 id="-webkit-text-security">-webkit-text-security</h2>
+<p><code class="highlighter-rouge">input[type=password]</code> 默认值disc</p>
+
+<p>对其它type的input设置此属性时，移动设备会有较长延迟（即输入时先明码显示，之后一会儿才转换为disc）</p>
+
+<p>详细示例及说明参见 <a href="https://github.com/JulieLee77/frontend-articles/blob/master/hybrid%20app/mobile-h5-issue1-pay-password.md">移动端h5问题探索(1)支付密码输入框</a></p>
+<h2 id="-webkit-text-size-adjust100">-webkit-text-size-adjust:100%;</h2>
+<p>禁止横竖屏时webkit内核浏览器网页文字缩放，解决font-size&lt;12px不能显示的问题（现代浏览器基本已无此问题）。</p>
+
+<p>chrome27已不再支持此属性。</p>
+
+<p>若设置全局的<code class="highlighter-rouge">-webkit-text-size-adjust:none;</code>会导致放大网页的时候字号不能改变。</p>
+
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +306,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/03/12/usually-used-algorithm-implemented-by-javascript/" data-toggle="tooltip" data-placement="top" title="常用算法／功能的javascript实现">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>常用算法／功能的javascript实现</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2016/03/21/Hybrid-App-develop-overview/" data-toggle="tooltip" data-placement="top" title="Hybrid App开发概述">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>Hybrid App开发概述</span>
                         </a>
                     </li>
                     

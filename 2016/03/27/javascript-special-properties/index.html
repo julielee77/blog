@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>javascript特殊属性总结 - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2016/03/27/javascript-special-properties/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
-                        
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>javascript特殊属性总结</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on March 27, 2016</span>
                 </div>
             </div>
         </div>
@@ -201,31 +199,104 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<h1 id="javascript特殊属性总结">javascript特殊属性总结</h1>
+<h2 id="dom">DOM</h2>
+<h3 id="尺寸相关">尺寸相关</h3>
+<ol>
+  <li>
+    <p>window 窗口</p>
 
-<p>display:flex</p>
+    <p><code class="highlighter-rouge">innerWidth</code> ／<code class="highlighter-rouge">innerHeight</code>  （ IE9＋）</p>
 
-<p>flex:1//number</p>
+    <p><code class="highlighter-rouge">outerWidth</code> ／<code class="highlighter-rouge">outerHeight</code>（IE9+）</p>
 
-<p>flex-direction:column//row –default</p>
+    <p><code class="highlighter-rouge">screenLeft</code> ／<code class="highlighter-rouge">screenTop</code></p>
 
-<p>flex-wrap:nowrap//default</p>
+    <p><code class="highlighter-rouge">screenX</code> ／<code class="highlighter-rouge">screenY</code></p>
+  </li>
+  <li>
+    <p>screen 设备</p>
 
-<p>flex-row:</p>
+    <p><code class="highlighter-rouge">width</code> ／<code class="highlighter-rouge">height</code>
+ <code class="highlighter-rouge">availWidth</code> ／<code class="highlighter-rouge">availHeight</code></p>
+  </li>
+  <li>
+    <p>其它尺寸//TODO 待详细分析</p>
+    <ul>
+      <li>
+        <p>client</p>
 
-<p>align-items:center</p>
+        <p>＝ content－滚动距离-滚动条（如果占据尺寸）+padding 无兼容问题</p>
 
-<p>justify-content:center</p>
+        <p><code class="highlighter-rouge">clientWidth</code> /<code class="highlighter-rouge">clientHeight</code></p>
 
-<p>align-self</p>
+        <p><code class="highlighter-rouge">clientLeft</code> /<code class="highlighter-rouge">clientTop</code></p>
+      </li>
+      <li>
+        <p>offset</p>
 
-<p>align-content</p>
+        <p>＝content－滚动距离+padding+border –chrome/firefox/safari</p>
 
-<p>order</p>
+        <p><code class="highlighter-rouge">offsetWidth</code> /<code class="highlighter-rouge">offsetHeight</code></p>
+      </li>
+    </ul>
 
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
+ 	<code class="highlighter-rouge">offsetLeft</code> /<code class="highlighter-rouge">offsetTop</code>
+
+    <ul>
+      <li>
+        <p>scroll</p>
+
+        <p>＝ content+padding –chrome/firefox/safari</p>
+
+        <p><code class="highlighter-rouge">scrollWidth</code> /<code class="highlighter-rouge">scrollHeight</code></p>
+
+        <p><code class="highlighter-rouge">scrollLeft</code> /<code class="highlighter-rouge">scrollTop</code>（可读写）</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>由于firefox等对body高度的解析不同，故应注意：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var clientWidth=(document.documentElement||document.body).clientWidth
+</code></pre></div></div>
+
+<p>scrollTop/scrollLeft可设置（无px单位），使DOM元素滚动到某处。</p>
+<h3 id="elementclasslist">element.classList</h3>
+<p>使用className属性操作class时，需要考虑元素原有class。而classList属性返回所有class的数组，有<code class="highlighter-rouge">add()</code>、 <code class="highlighter-rouge">remove()</code> 、<code class="highlighter-rouge">toggle()</code>、 <code class="highlighter-rouge">contains()</code>、 <code class="highlighter-rouge">item(index)</code>、 <code class="highlighter-rouge">length</code>等方法和属性。且每次只能添加／删除一个类。</p>
+
+<p>支持IE10+，Android 3+（4.4+完全支持）。</p>
+
+<h3 id="阻止事件默认行为">阻止事件默认行为</h3>
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">event.preventDefault()</code></p>
+
+    <p>firefox/chrome／IE9+</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">event.returnValue=false</code></p>
+
+    <p>IE/chrome</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">return false</code>
+  查找到的此方法，但经测试均不支持</p>
+  </li>
+</ul>
+
+<p>移动端对前两种方法均支持。示例参见<a href="https://github.com/JulieLee77/frontend-articles/blob/master/hybrid%20app/mobile-h5-issue1-pay-password.md">移动端h5问题探索(1)支付密码输入框</a></p>
+<h3 id="documentactiveelementblur">document.activeElement.blur()</h3>
+<p><code class="highlighter-rouge">document.activeElement</code>可获取当前聚焦元素。</p>
+
+<p><code class="highlighter-rouge">element.blur()</code>基本不会用，因为当需要改变聚焦元素直接调用 <code class="highlighter-rouge">element.focus()</code>即可，对于不支持直接 <code class="highlighter-rouge">focus()</code>的环境先调用 <code class="highlighter-rouge">blur()</code>也解决不了（如ios）。</p>
+<h3 id="windowreload">window.reload()</h3>
+<p>刷新页面
+###getComputedStyle()
+支持IE9+/chrome/firefox，IE8-对应的方法为 <code class="highlighter-rouge">element.currentStyle</code>。</p>
+
+<p><code class="highlighter-rouge">getComputedStyle(element,null).height</code> 获取的是原始值，包括auto/%。 可用 <code class="highlighter-rouge">clientHeight</code>、<code class="highlighter-rouge">offsetHeight</code>获取计算后的px。值。</p>
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +304,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/03/21/Hybrid-App-develop-overview/" data-toggle="tooltip" data-placement="top" title="Hybrid App开发概述">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>Hybrid App开发概述</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2016/05/20/mobile-h5-issue1-pay-password/" data-toggle="tooltip" data-placement="top" title="移动端h5问题探索(1)支付密码输入框">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>移动端h5问题探索(1)支付密码输入框</span>
                         </a>
                     </li>
                     

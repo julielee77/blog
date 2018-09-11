@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>tap事件 - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2016/06/22/tap-event/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
+                        <a class="tag" href="/tags/#Javascript事件" title="Javascript事件">Javascript事件</a>
                         
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>tap事件</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on June 22, 2016</span>
                 </div>
             </div>
         </div>
@@ -201,31 +201,24 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<h1 id="tap事件">tap事件</h1>
+<p>由于移动端click事件有300ms的延迟，推荐用tap事件代替。</p>
 
-<p>display:flex</p>
+<h2 id="定义">定义</h2>
+<p>当touchstart/touchend发生时，如果手指为同一位置且没有touchmove时，即认为一个tap事件。</p>
+<h2 id="tap穿透">tap“穿透”</h2>
+<p>现象：当使用tap事件让一个蒙层消失时，会触发蒙层覆盖部分的click事件。</p>
 
-<p>flex:1//number</p>
+<p>解释：因为tap后蒙层消失，但300ms后click事件会被触发，就被覆盖部分的元素接受了。</p>
 
-<p>flex-direction:column//row –default</p>
+<p>解决方法：</p>
+<ol>
+  <li>使用缓动动画，过渡300ms的延迟</li>
+  <li>中间层DOM元素，让其接受此“穿透”</li>
+  <li>全部都是click事件（但避免不了a标签这种原生的click）</li>
+  <li>改用Fastclick的库（zepto.js已修复）</li>
+</ol>
 
-<p>flex-wrap:nowrap//default</p>
-
-<p>flex-row:</p>
-
-<p>align-items:center</p>
-
-<p>justify-content:center</p>
-
-<p>align-self</p>
-
-<p>align-content</p>
-
-<p>order</p>
-
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +226,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/06/22/mobile-h5-issue2-swipe-tab/" data-toggle="tooltip" data-placement="top" title="移动端h5问题探索--左右滑切换tab">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>移动端h5问题探索--左右滑切换tab</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2016/07/26/vue-issue/" data-toggle="tooltip" data-placement="top" title="前端实用工具／库">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>前端实用工具／库</span>
                         </a>
                     </li>
                     

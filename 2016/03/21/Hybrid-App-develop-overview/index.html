@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>Hybrid App开发概述 - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2016/03/21/Hybrid-App-develop-overview/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
+                        <a class="tag" href="/tags/#移动端开发" title="移动端开发">移动端开发</a>
                         
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#Hybird App" title="Hybird App">Hybird App</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>Hybrid App开发概述</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on March 21, 2016</span>
                 </div>
             </div>
         </div>
@@ -201,31 +201,141 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<blockquote>
+  <p>移动端网页开发主要考虑<strong>webkit内核的浏览器</strong>（hybird App主要）和chrome，uc,qq,小米浏览器—测试的重点</p>
+</blockquote>
 
-<p>display:flex</p>
+<h2 id="前言">前言</h2>
+<p>移动端网页开分为三种模式：</p>
 
-<p>flex:1//number</p>
+<ol>
+  <li>
+    <p>移动端web app</p>
 
-<p>flex-direction:column//row –default</p>
+    <p>如新浪微博网页版，一般特点是</p>
 
-<p>flex-wrap:nowrap//default</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>移动端网页</p>
 
-<p>flex-row:</p>
+    <p>如新浪网</p>
+  </li>
+  <li>
+    <p>Hybrid App</p>
 
-<p>align-items:center</p>
+    <p>Hybrid APP包括Andriod或ios开发的原生部分和在其webview中打开的html5页面（如微信网页）</p>
 
-<p>justify-content:center</p>
+    <p>以下讨论Hybrid App。</p>
+  </li>
+</ol>
 
-<p>align-self</p>
+<h2 id="webview">webview</h2>
+<p>webview做为承载网页的载体控件，可以将其视为客户端系统内置的浏览器，它使用了webkit渲染引擎加载显示网页。</p>
 
-<p>align-content</p>
+<p>WebView在网页显示的过程中会产生一些事件，并回调给应用程序，以便在网页加载过程中做应用程序想处理的事情。</p>
 
-<p>order</p>
+<p>WebView提供两个事件回调类给应用层——</p>
 
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
+<ul>
+  <li>WebViewClient 提供网页加载各个阶段的通知</li>
+  <li>WebChromeClient 提供网页加载过程中提供的数据内容</li>
+</ul>
+
+<p><strong>webview与js交互：</strong></p>
+
+<ol>
+  <li>
+    <p>webview调用js</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /*andriod */
+ mWebview.loadUrl("javascript:do()");
+</code></pre></div>    </div>
+
+    <p>webview调用js中do方法。</p>
+  </li>
+  <li>
+    <p>js调用webview</p>
+
+    <p>android或ios开放某些特定接口供javascript调用，即UIViewController中的代码（Native）。</p>
+
+    <p>js是不能直接调用native的method，所以需要借助uiwebview的代理方法</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /*andriod */
+ (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+</code></pre></div>    </div>
+    <p>每次在重新定向URL的时候，这个方法就会被触发。webviewJavascriptBridge 也是利用这个方法实现的。</p>
+
+    <p>假设以下本地类给js调用</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="p">/*</span><span class="n">andriod</span> <span class="p">*/</span>
+ <span class="k">package</span> <span class="n">com</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">webview</span><span class="p">;</span>
+ <span class="n">class</span> <span class="n">DemoJavaScriptInterface</span> <span class="p">{</span>
+   <span class="n">DemoJavaScriptInterface</span><span class="p">()</span> <span class="p">{</span>
+   <span class="p">}</span>
+   <span class="p">/**</span>
+    <span class="p">*</span> <span class="n">This</span> <span class="n">is</span> <span class="k">not</span> <span class="n">called</span> <span class="n">on</span> <span class="n">the</span> <span class="n">UI</span> <span class="n">thread</span><span class="p">.</span> <span class="n">Post</span> <span class="n">a</span> <span class="n">runnable</span> <span class="k">to</span> <span class="n">invoke</span>
+    <span class="p">*</span> <span class="n">loadUrl</span> <span class="n">on</span> <span class="n">the</span> <span class="n">UI</span> <span class="n">thread</span><span class="p">.</span>
+    <span class="p">*/</span>
+   <span class="k">public</span> <span class="n">void</span> <span class="n">clickOnAndroid</span><span class="p">()</span> <span class="p">{</span>
+       <span class="n">mHandler</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
+     <span class="k">public</span> <span class="n">void</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+         <span class="p">//</span><span class="n">TODO</span>
+     <span class="p">}</span>
+       <span class="p">});</span>
+   <span class="p">}</span>
+     <span class="p">}</span>
+</code></pre></div>    </div>
+    <p>首先给webview设置：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /*andriod */
+ mWebview.setJavaScriptEnabled(true);
+</code></pre></div>    </div>
+
+    <p>接着将本地的类映射出去：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /*andriod */
+ mWebView.addJavascriptInterface(new DemoJavaScriptInterface(), "demo");
+</code></pre></div>    </div>
+
+    <p>以上实现demo类公布出去供js调用。</p>
+  </li>
+</ol>
+
+<h2 id="特点">特点</h2>
+<ol>
+  <li>资源大部分以file开头，本地、网络资源使用js异步接口和native获取，再和js的接口交互</li>
+  <li>
+    <p>js调用native功能</p>
+
+    <ul>
+      <li>让native监控一系列特殊的url请求，再在native中调用相应的功能或者提供数据接口，数据的提供方式类似JSONP</li>
+      <li>
+        <p>类似Apache cordova（驱动phonegap的核心引擎，从phonegap抽出的核心代码贡献给apache）</p>
+
+        <p>提供设备相关API、js类库以及这些类库相关的设备原生后台代码。</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="优势">优势</h2>
+<ol>
+  <li>可以指定什么版本的webview，用什么内核，拥有什么等级的安全权限等等</li>
+  <li>因为资源本地化，可以使用重级的框架，如angular,react （最终都是通过和native代码捆绑发布）</li>
+  <li>native的静态前端部分的更新，可以使用远程下载静态资源包的方式实现，不发布大版本而修改webview中的逻辑请求（这点也是大部分公司选择一般native，一半h5开发原因。都知道ios审核发版很慢）</li>
+</ol>
+
+<p>移动端优化的很大一个瓶颈就是网络环境不一致，如wifi、4G 、3G、2G，以及其对应的网络状态良好、较差等情况，特别是对于大流量资源如大量图片。</p>
+
+<p>附参考：</p>
+
+<p><a href="https://www.zhihu.com/question/20269059">移动前端开发和 Web 前端开发的区别是什么？推荐小爵的回答</a></p>
+
+<p><a href="http://developer.telerik.com/featured/what-is-a-hybrid-mobile-app/">What is a Hybrid Mobile App?</a></p>
+
+<p><a href="http://liangruijun.blog.51cto.com/3061169/647456/">Android开发学习笔记：浅谈WebView</a></p>
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +343,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/03/20/h5-develop-useful-function-or-attributes/" data-toggle="tooltip" data-placement="top" title="前端实用工具／库">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>前端实用工具／库</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2016/03/27/javascript-special-properties/" data-toggle="tooltip" data-placement="top" title="javascript特殊属性总结">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>javascript特殊属性总结</span>
                         </a>
                     </li>
                     

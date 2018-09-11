@@ -10,7 +10,7 @@
     <meta name="keywords"  content="博客,Web, JavaScript, 前端, 产品">
     <meta name="theme-color" content="#000000">
     
-    <title>flex布局 - Julie的博客 | Julie's Blog</title>
+    <title>webpack构建开发环境 - Julie的博客 | Julie's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://lihaizhu.com/2018/07/20/flex-layout/">
+    <link rel="canonical" href="https://lihaizhu.com/2016/02/25/webpack-deploy-develop-environment/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -170,17 +170,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#css" title="css">css</a>
+                        <a class="tag" href="/tags/#前端构建" title="前端构建">前端构建</a>
                         
-                        <a class="tag" href="/tags/#Flex box" title="Flex box">Flex box</a>
+                        <a class="tag" href="/tags/#webpack" title="webpack">webpack</a>
                         
                     </div>
-                    <h1>flex布局</h1>
+                    <h1>webpack构建开发环境</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Julie on July 20, 2018</span>
+                    <span class="meta">Posted by Julie on February 25, 2016</span>
                 </div>
             </div>
         </div>
@@ -201,31 +201,273 @@
                 <!-- Multi-Lingual -->
                 
 
-				<p>// TODO</p>
+				<blockquote>
+  <p>阅读webpack官方文档的总结性文章</p>
+</blockquote>
 
-<p>display:flex</p>
+<h2 id="安装webpack及相关组件">安装webpack及相关组件</h2>
+<ol>
+  <li>
+    <p>在设备上安装全局的webpack</p>
 
-<p>flex:1//number</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> npm install webpack -g
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>创建项目文件夹并进入，然后运行</p>
 
-<p>flex-direction:column//row –default</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> npm init #会创建一个package.json文件，并进入编辑
+</code></pre></div>    </div>
+    <p>package.json是项目的依赖模块，也可在编辑器中编辑
+ 以下示例为整理的项目中大概会用的depencies</p>
 
-<p>flex-wrap:nowrap//default</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> //package.json
+ {
+   "name": "demo",
+   "version": "1.0.0",
+   "author": {
+     "name": "XXX"
+   },
+   "description": "",
+   "license": "XXX",
+   "dependencies": {
+   	"coffee-loader": "~0.7.1",
+ 	"coffee-script": "^1.10.0",
+ 	"css-loader": "~0.15.0",
+ 	"jade": "^1.11.0",
+ 	"jade-loader": "~0.7.0",
+ 	"js-beautify": "^1.5.10",
+ 	"json-loader": "~0.5.1",
+ 	"less": "^2.5.1",
+ 	"less-loader": "^2.0.0",
+ 	"script-loader": "~0.6.0",
+ 	"style-loader": "~0.12.0",
+ 	"url-loader": "~0.5.0",
+ 	"image-loader": "",
+ 	"stylus": "",
+ 	"stylus-loader": "",
+ 	"babel-core": "",
+ 	"babel-loader": "",
+ 	"jsx-loader":""
+  		}
+ }
+</code></pre></div>    </div>
+    <p><a href="http://www.mujiang.info/translation/npmjs/files/package.json.html">package.json参数参考</a></p>
 
-<p>flex-row:</p>
+    <p>注：对于一些转换的loader需要安装转换工具（未配置会提示并自动安	装），如less-loader和less。</p>
+  </li>
+  <li>
+    <p>运行npm安装</p>
 
-<p>align-items:center</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> npm install webpack --save-dev
+</code></pre></div>    </div>
+    <p>会自动寻找路径的下的package.json，安装对应的dependencies和	webpack（里面包含了webpack模块的plugin，其它plugin需安	装），均存放在新建的node_modules文件夹中。后续如果要新增	loader可运行</p>
 
-<p>justify-content:center</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> npm install XXX-loader --save-dev
+</code></pre></div>    </div>
+    <p>安装完后会自动写入package.json</p>
+  </li>
+</ol>
 
-<p>align-self</p>
+<h2 id="webpackconfig-配置">webpack.config 配置</h2>
+<p>webpack.config.js用于指出entry入口文件、编译的loaders、output输出信息、plugin方法的引入等。也可以用其它命名，但运行的时候需指出。</p>
 
-<p>align-content</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*webpack.config.js示例*/
+var path=require('path');//自带的处理或转化文件路径的模块
+var webpack = require('webpack');
+var ExtractTextPlugin=require('extract-text-webpack-plugin');
+var extractCss=new ExtractTextPlugin('../css/[name].css');//定义输出为css格式的样式文件，并住的指定名字和路径
 
-<p>order</p>
+var ROOT_PATH=path.resolve(__dirname);
+var APP_PATH=path.resolve(ROOT_PATH,'app');
+var BUILD_PATH=path.resolve(ROOT_PATH,'build');
+module.exports = {
+  //context:ROOT_PATH,//处理entry选项的及目录（绝对路径）
+  //页面入口配置文件,每个entry属性对应一个文件  字符串、数组或对象
+  entry: {
+    app:path.resolve(APP_PATH,'index.js')
+  },
+  output: {
+    //publicPath用于调试或CDN之类的域名
+    path: BUILD_PATH,
+    filename: '[name].bundle.js'
+  },
+  devtool:'eval-source-map',
+  //出错时会采用source-map的形式直接显示出错的代码位置
+  module: {
+    //-loader可以省略，多个loader间用！连接
+    // 使用loader前要先安装，比如url-loader  npm install url-loader --save-dev（或--save）
+    loaders: [
+      {
+        test: /\.jade$/,
+        loader:'jade-html'
+      },
+      {
+        test:/\.scss$/,
+        loader:extractCss.extract('css!sass')
+      },
+      {
+        test:/\.less$/,
+        loader:'css!less'
+      },
+      {
+        test:/\.styl$/,
+        loader:extractCss.extract('css!stylus')
+      },
+      {
+        test:/\.jsx$/,
+        loader:'jsx?harmony'
+      },
+      {
+        test:/\.coffee$/,
+        loader:'coffee'
+      },
+      {
+        test:/\.ts$/,
+        loader:'typescript'
+      },
+      {
+        test:/\.js$/,
+        loader:'babel',
+        //或者在项目配置一个.babelrc
+        query:{
+          presets:['es2015']
+        }
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: [
+          'image?{bypassOnDebug: true, progressive:true, \
+              optimizationLevel: 3, pngquant:{quality: "65-80"}}',
+          'url?limit=10000&amp;name=img/[hash:8].[name].[ext]'
+        ] //超过8kb才使用url-loader来映射到文件，都则转为data url形式
+        //Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一
+      },
+      {
+        test: /\.(woff|eot|ttf)$/i,
+        loader: 'url?limit=10000&amp;name=fonts/[hash:8].[name].[ext]'
+      }
+    ]
+  },
+  //其它解决方案配置
+  resolve: { //设置文件自动扩展后缀名 require可以省略后缀名（不推荐）
+    root: '...',//绝对路径
+    extensions: [
+      '',
+      '.js',
+      '.json',
+      '.css'
+    ],
+    alias: { //模块别名定义，如后续直接用AppStore即可
 
-<p>兼容性处理
-ios完全兼容
-android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。</p>
+    }
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    extractCss
+    ]
+};
+</code></pre></div></div>
+
+<p><a href="http://webpack.github.io/docs/configuration.html">配置项参考</a></p>
+
+<h1 id="采用webpack编译各类文件">采用webpack编译各类文件</h1>
+<p>需要预先安装对应的loader，并在webpack.config.js中声明loader
+如上面的packge.json文件中所使用的loader</p>
+
+<ul>
+  <li>less文件  less-loader（并安装less依赖）</li>
+  <li>stylus文件 stylus-loader（并安装stylus依赖）</li>
+  <li>ES6 babel-loader和babel-preset-es2015（并安装babel-core依赖）</li>
+  <li>coffeeScript coffee-loader（并安装coffee-script依赖）</li>
+  <li>JSX  jsx-loader 将react的jsx转换成js代码</li>
+</ul>
+
+<p>注：编译时，不会生成中间文件，如将Less作为style嵌入到html中，则不会生成对应的css文件。
+<a href="http://webpack.github.io/docs/list-of-loaders.html">loaders参考</a></p>
+
+<h1 id="插件的使用">插件的使用</h1>
+<p>使用webpack模块的插件（webpack.XXXPlugin）需先在当前路径安装webpack</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install webpack --save-dev #同上可在安装package.json时一并安装
+</code></pre></div></div>
+<p>这样，webpack模块的plugin就都安装了
+非webpack模块的插件需要在当前项目安装，如：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install extract-text-webpack-plugin
+</code></pre></div></div>
+
+<p>配置示例见webpack.config.js
+常用插件</p>
+
+<ul>
+  <li>
+    <p>webpack.optimize.Commons.chunkPlugin  合并js中的相同部分，见上示例</p>
+  </li>
+  <li>
+    <p>webpack.optimize.MinChunkSizePlugin 压缩js</p>
+  </li>
+  <li>
+    <p>ExtractTextPlugin 单独打包css（webpack默认需要style-loader将当作style插入html）</p>
+  </li>
+  <li>
+    <p>UglifyJsPlugin 代码丑化，建议开发过程中不开启</p>
+  </li>
+</ul>
+
+<h1 id="webpack模块引入的使用">webpack模块引入的使用</h1>
+<p>在html中直接引入webpack最终生成的js脚本即可。各脚本模块、样式文件、图片可以直接使用CommonJS来书写，并可以直接引入未编译的less/coffeeScript等。如：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require('./style.less');
+document.write('It works');
+document.write(require('./content.js'));
+</code></pre></div></div>
+<p>注：require时可以指明loader（若未在webpack.config.js中配置），如</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require('!style!css!less!./style.less')
+</code></pre></div></div>
+
+<h1 id="运行webpack">运行webpack</h1>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webpack #使用默认的webpack.config.js编译
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webpack --display-error-detail #可输出错误信息
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webpack --config XXX.js #使用另外的配置文件编译
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webpack --progress --colors #可显示进度
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webpack --progress --colors --watch #监听模式（没有变化的模块不会重复编译）
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webpack -p 压缩混淆代码（相当于--optimize-minimize --optimize-occurence-order）
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webpack -d 生成map映射文件（即模块最终打包到了哪里）
+</code></pre></div></div>
+<p>其它常用cli</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>webpack &lt;entry&gt; &lt;output&gt; --module-bind '后缀名=loaders列表' 
+</code></pre></div></div>
+
+<h1 id="development-server">Development server</h1>
+<p>以监听模式自动运行webpack。</p>
+
+<p>可与react的react-hot-loader（不刷新同步显示修改的页面）配合使用，参见<a href="http://www.jianshu.com/p/8adf4c2bfa51">http://www.jianshu.com/p/8adf4c2bfa51</a>。</p>
+
+<h1 id="实例">实例</h1>
+
+<p><a href="https://github.com/webpack/webpack/tree/master/examples/multiple-entry-points">multiple entry points</a></p>
+<h1 id="链接补充">链接补充</h1>
+<p>webpack入门  <a href="http://segmentfault.com/a/1190000002551952">segmentFault传送门</a></p>
+
+<p>webpack使用优化 <a href="https://github.com/lcxfs1991/blog/issues/2">gitHub issue传送门</a></p>
+
+<p><a href="http://zhuanlan.zhihu.com/FrontendMagazine/20367175">知乎专栏</a> 包括文中提到的前两篇，可暂且忽略react相关</p>
 
 
                 <hr style="visibility: hidden;">
@@ -233,17 +475,17 @@ android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/19/frontend-performance-optimization/" data-toggle="tooltip" data-placement="top" title="前端性能优化">
+                        <a href="/2016/02/20/mobile-h5-issue-summary/" data-toggle="tooltip" data-placement="top" title="移动端h5问题总结">
                         Previous<br>
-                        <span>前端性能优化</span>
+                        <span>移动端h5问题总结</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/09/11/web-security-hole/" data-toggle="tooltip" data-placement="top" title="web安全漏洞">
+                        <a href="/2016/03/02/CSS-utils/" data-toggle="tooltip" data-placement="top" title="CSS常用功能实现">
                         Next<br>
-                        <span>web安全漏洞</span>
+                        <span>CSS常用功能实现</span>
                         </a>
                     </li>
                     
