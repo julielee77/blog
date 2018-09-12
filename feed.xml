@@ -3,10 +3,10 @@
   <channel>
     <title>Julie's Blog</title>
     <description>前端与产品，Web</description>
-    <link>https://lihaizhu.com/</link>
-    <atom:link href="https://lihaizhu.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 11 Sep 2018 20:48:14 +0800</pubDate>
-    <lastBuildDate>Tue, 11 Sep 2018 20:48:14 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 12 Sep 2018 10:42:44 +0800</pubDate>
+    <lastBuildDate>Wed, 12 Sep 2018 10:42:44 +0800</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
@@ -19,8 +19,8 @@ https://my.oschina.net/lovelong1/blog/217622&lt;/p&gt;
 &lt;h2 id=&quot;https&quot;&gt;https&lt;/h2&gt;
 </description>
         <pubDate>Tue, 11 Sep 2018 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2018/09/11/web-security-hole/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2018/09/11/web-security-hole/</guid>
+        <link>http://localhost:4000/2018/09/11/web-security-hole/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/09/11/web-security-hole/</guid>
         
         <category>web安全</category>
         
@@ -56,8 +56,8 @@ ios完全兼容
 android 4.4+支持新版的flex布局，android 4.4－支持旧版flexbox布局。&lt;/p&gt;
 </description>
         <pubDate>Fri, 20 Jul 2018 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2018/07/20/flex-layout/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2018/07/20/flex-layout/</guid>
+        <link>http://localhost:4000/2018/07/20/flex-layout/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/07/20/flex-layout/</guid>
         
         <category>css</category>
         
@@ -236,8 +236,8 @@ requestAnimationFrame android 4.4.4以上支持  requestIdleCallback只有chrome
 
 </description>
         <pubDate>Mon, 19 Feb 2018 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2018/02/19/frontend-performance-optimization/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2018/02/19/frontend-performance-optimization/</guid>
+        <link>http://localhost:4000/2018/02/19/frontend-performance-optimization/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/02/19/frontend-performance-optimization/</guid>
         
         <category>性能优化</category>
         
@@ -257,8 +257,41 @@ requestAnimationFrame android 4.4.4以上支持  requestIdleCallback只有chrome
 待续….&lt;/p&gt;
 </description>
         <pubDate>Wed, 19 Jul 2017 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2017/07/19/weixin-share-issue/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2017/07/19/weixin-share-issue/</guid>
+        <link>http://localhost:4000/2017/07/19/weixin-share-issue/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/07/19/weixin-share-issue/</guid>
+        
+        <category>前端工具</category>
+        
+        <category>JavaScript框架</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>前端实用工具／库</title>
+        <description>&lt;h1 id=&quot;vue实践总结&quot;&gt;Vue实践总结&lt;/h1&gt;
+&lt;h2 id=&quot;vue问题总结&quot;&gt;Vue问题总结&lt;/h2&gt;
+&lt;h3 id=&quot;click延迟&quot;&gt;click延迟&lt;/h3&gt;
+&lt;p&gt;页面初次加载立即触发click事件会无响应，需滑动页面再触发。&lt;/p&gt;
+
+&lt;p&gt;猜测是DOM还未渲染好或事件还未绑定。&lt;/p&gt;
+
+&lt;p&gt;//TODO 待解决&lt;/p&gt;
+&lt;h2 id=&quot;v-for渲染对象顺序&quot;&gt;v-for渲染对象顺序&lt;/h2&gt;
+&lt;p&gt;ios和android顺序不一样，应避免使用。(vue 2.0已改为v-repeat)&lt;/p&gt;
+
+&lt;p&gt;此方法类似&lt;code class=&quot;highlighter-rouge&quot;&gt;for attr in object&lt;/code&gt;再判断&lt;code class=&quot;highlighter-rouge&quot;&gt;hasOwnproperty&lt;/code&gt;，故遍历结果顺序不确定。&lt;/p&gt;
+&lt;h2 id=&quot;插件&quot;&gt;插件&lt;/h2&gt;
+&lt;h3 id=&quot;vue-resource&quot;&gt;vue-resource&lt;/h3&gt;
+&lt;p&gt;实现ajax功能，并配置请求信息&lt;/p&gt;
+&lt;h3 id=&quot;vue-touch&quot;&gt;vue-touch&lt;/h3&gt;
+&lt;p&gt;移动端手指事件组件库&lt;/p&gt;
+
+&lt;p&gt;该组件库使用hammer.js封装，但目前不支持vue 2.0。（2016.11.22）&lt;/p&gt;
+</description>
+        <pubDate>Tue, 26 Jul 2016 19:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2016/07/26/vue-issue/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/07/26/vue-issue/</guid>
         
         <category>前端工具</category>
         
@@ -390,46 +423,13 @@ requestAnimationFrame android 4.4.4以上支持  requestIdleCallback只有chrome
   &lt;/li&gt;
 &lt;/ol&gt;
 </description>
-        <pubDate>Mon, 20 Feb 2017 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2017/02/20/mobile-h5-responsive-issue/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2017/02/20/mobile-h5-responsive-issue/</guid>
+        <pubDate>Wed, 06 Jul 2016 19:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2016/07/06/mobile-h5-responsive-issue/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/07/06/mobile-h5-responsive-issue/</guid>
         
         <category>H5</category>
         
         <category>移动端开发</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>前端实用工具／库</title>
-        <description>&lt;h1 id=&quot;vue实践总结&quot;&gt;Vue实践总结&lt;/h1&gt;
-&lt;h2 id=&quot;vue问题总结&quot;&gt;Vue问题总结&lt;/h2&gt;
-&lt;h3 id=&quot;click延迟&quot;&gt;click延迟&lt;/h3&gt;
-&lt;p&gt;页面初次加载立即触发click事件会无响应，需滑动页面再触发。&lt;/p&gt;
-
-&lt;p&gt;猜测是DOM还未渲染好或事件还未绑定。&lt;/p&gt;
-
-&lt;p&gt;//TODO 待解决&lt;/p&gt;
-&lt;h2 id=&quot;v-for渲染对象顺序&quot;&gt;v-for渲染对象顺序&lt;/h2&gt;
-&lt;p&gt;ios和android顺序不一样，应避免使用。(vue 2.0已改为v-repeat)&lt;/p&gt;
-
-&lt;p&gt;此方法类似&lt;code class=&quot;highlighter-rouge&quot;&gt;for attr in object&lt;/code&gt;再判断&lt;code class=&quot;highlighter-rouge&quot;&gt;hasOwnproperty&lt;/code&gt;，故遍历结果顺序不确定。&lt;/p&gt;
-&lt;h2 id=&quot;插件&quot;&gt;插件&lt;/h2&gt;
-&lt;h3 id=&quot;vue-resource&quot;&gt;vue-resource&lt;/h3&gt;
-&lt;p&gt;实现ajax功能，并配置请求信息&lt;/p&gt;
-&lt;h3 id=&quot;vue-touch&quot;&gt;vue-touch&lt;/h3&gt;
-&lt;p&gt;移动端手指事件组件库&lt;/p&gt;
-
-&lt;p&gt;该组件库使用hammer.js封装，但目前不支持vue 2.0。（2016.11.22）&lt;/p&gt;
-</description>
-        <pubDate>Tue, 26 Jul 2016 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2016/07/26/vue-issue/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2016/07/26/vue-issue/</guid>
-        
-        <category>前端工具</category>
-        
-        <category>JavaScript框架</category>
         
         
       </item>
@@ -456,8 +456,8 @@ requestAnimationFrame android 4.4.4以上支持  requestIdleCallback只有chrome
 
 </description>
         <pubDate>Wed, 22 Jun 2016 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2016/06/22/tap-event/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2016/06/22/tap-event/</guid>
+        <link>http://localhost:4000/2016/06/22/tap-event/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/06/22/tap-event/</guid>
         
         <category>Javascript事件</category>
         
@@ -596,8 +596,8 @@ window.addEventListener('touchend', function (event) {
 
 </description>
         <pubDate>Wed, 22 Jun 2016 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2016/06/22/mobile-h5-issue2-swipe-tab/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2016/06/22/mobile-h5-issue2-swipe-tab/</guid>
+        <link>http://localhost:4000/2016/06/22/mobile-h5-issue2-swipe-tab/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/06/22/mobile-h5-issue2-swipe-tab/</guid>
         
         <category>H5</category>
         
@@ -626,8 +626,8 @@ window.addEventListener('touchend', function (event) {
 &lt;/ol&gt;
 </description>
         <pubDate>Mon, 20 Jun 2016 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2016/06/20/web-design/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2016/06/20/web-design/</guid>
+        <link>http://localhost:4000/2016/06/20/web-design/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/06/20/web-design/</guid>
         
         <category>web设计</category>
         
@@ -811,8 +811,8 @@ window.addEventListener('touchend', function (event) {
 
 </description>
         <pubDate>Fri, 20 May 2016 19:00:00 +0800</pubDate>
-        <link>https://lihaizhu.com/2016/05/20/mobile-h5-issue1-pay-password/</link>
-        <guid isPermaLink="true">https://lihaizhu.com/2016/05/20/mobile-h5-issue1-pay-password/</guid>
+        <link>http://localhost:4000/2016/05/20/mobile-h5-issue1-pay-password/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/05/20/mobile-h5-issue1-pay-password/</guid>
         
         <category>H5</category>
         
