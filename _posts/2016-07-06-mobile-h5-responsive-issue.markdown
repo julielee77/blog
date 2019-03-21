@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "移动端h5适配方案"
-date:       2017-02-20 11:00:00
+date:       2016-07-06 11:00:00
 author:     "Julie"
 header-img: "img/post-bg-nextgen-web-pwa.jpg"
 header-mask: 0.3
